@@ -1,4 +1,3 @@
-import Button from "./Button";
 import "./Header_writing.css";
 
 const Header_writing = ({text}) => {

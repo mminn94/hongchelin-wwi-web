@@ -104,11 +104,12 @@ const KakaoMap = () => {
       ></div>
         <div
           style={{
-            width: "60%",
+            width: "80%",
             padding: "10px",
             margin: "10px 0",
             borderLeft: "3px solid #BD2333",
             backgroundColor: "#fdf2f2",
+            borderRadius: "6px",
           }}
         >
           {selectedPlace ? (

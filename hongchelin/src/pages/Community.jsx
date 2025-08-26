@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Button from "../components/Button";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import Items from "../components/Items";
 import Header_writing from "../components/Header_writing";
 import "./Community.css";

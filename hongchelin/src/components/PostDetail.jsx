@@ -7,7 +7,7 @@ import {
   createCommunityComment,
   deleteCommunityComment,
 } from "../api/community";
-import Button from "../components/Button";
+import Button from "./Button";
 import "./PostDetail.css";
 
 const PostDetail = () => {
@@ -188,7 +188,8 @@ const PostDetail = () => {
               <Button
                 type="delete"
                 onClick={() => handleCommentDelete(c.id)}
-                style={{ marginLeft: "10px" }}>
+                style={{ marginLeft: "10px" }}
+              >
                 삭제
               </Button>
             </div>

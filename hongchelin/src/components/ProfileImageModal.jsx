@@ -58,8 +58,7 @@ const ProfileImageModal = ({ onClose, onSave }) => {
         <input
         type="file"
         accept="image/*"
-        onChange={handleFileChange}
-        />
+        onChange={handleFileChange}/>
 
         {previewURL &&
         <img

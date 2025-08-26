@@ -43,7 +43,7 @@ function App() {
                 <Route path="*" element={<div>페이지를 찾을 수 없습니다.</div>}/>
               </Routes>
             </main>
-            <Footer />   {/* ✅ 항상 하단 고정 */}
+            <Footer />
           </div>
         </Router>
       </PostsDispatchContext.Provider>

@@ -12,9 +12,14 @@ import {
 import { BADGES } from "../constants/BadgeImage";
 
 const Profile = () => {
+  const defaultProfile = "/images/기본프로필.png";
+  const apiBase = import.meta.env.VITE_API_URL;
+
   const [nickname, setNickname] = useState("닉네임");
-  const [profileImage, setProfileImage] = useState("");
+  const [profileImage, setProfileImage] = useState(defaultProfile);
   const [activeBadgeId, setActiveBadgeId] = useState(BADGES[0]?.id);
+
+  const [ownedBadgeIds, setOwnedBadgeIds] = useState([]);
 
   const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -27,13 +32,20 @@ const Profile = () => {
       try {
         const me = await getMyProfile();
         setNickname(me.nickname ?? "닉네임");
-        setProfileImage(me.profileImageUrl ?? "");
+
+        if (me?.profileImageUrl && me.profileImageUrl.trim() !== "") {
+          setProfileImage(`${apiBase}${me.profileImageUrl}?t=${Date.now()}`);
+        } else {
+          setProfileImage(defaultProfile);
+        }
+
         if (me.activeBadgeId != null) setActiveBadgeId(me.activeBadgeId);
+        if (Array.isArray(me.badgeIds)) setOwnedBadgeIds(me.badgeIds);
       } catch (err) {
         console.error("마이페이지 조회 실패:", err);
       }
     })();
-  }, []);
+  }, [apiBase]);
 
   const handleNicknameSave = async (newNickname) => {
     try {
@@ -46,23 +58,15 @@ const Profile = () => {
     }
   };
 
-
   const handleImageSave = async (file) => {
     try {
-      const me = await updateMyProfileImage(file);
+      await updateMyProfileImage(file);
+      const me = await getMyProfile();
 
-      if (me?.profileImageUrl) {
-        if (tempObjectUrlRef.current) {
-          URL.revokeObjectURL(tempObjectUrlRef.current);
-          tempObjectUrlRef.current = null;
-        }
-        setProfileImage(me.profileImageUrl);
+      if (me?.profileImageUrl && me.profileImageUrl.trim() !== "") {
+        setProfileImage(`${apiBase}${me.profileImageUrl}?t=${Date.now()}`);
       } else {
-
-        if (tempObjectUrlRef.current) URL.revokeObjectURL(tempObjectUrlRef.current);
-        const tmp = URL.createObjectURL(file);
-        tempObjectUrlRef.current = tmp;
-        setProfileImage(tmp);
+        setProfileImage(defaultProfile);
       }
       setIsImageModalOpen(false);
     } catch (error) {
@@ -71,25 +75,23 @@ const Profile = () => {
     }
   };
 
-
   useEffect(() => {
     return () => {
       if (tempObjectUrlRef.current) URL.revokeObjectURL(tempObjectUrlRef.current);
     };
   }, []);
 
-
   const handleBadgeSave = (newBadgeId) => {
     setActiveBadgeId(newBadgeId);
     setIsBadgeModalOpen(false);
   };
 
-  const displayImage = profileImage || "/images/avatar_placeholder.png";
-  const badgeSrc = BADGES.find(b => b.id === activeBadgeId)?.src;
-  
+  //const displayImage = profileImage || defaultProfile;
+  const badgeSrc = BADGES.find((b) => b.id === activeBadgeId)?.src;
+
   return (
     <>
-      <Name nickname={nickname} profileImage={displayImage} badge={badgeSrc}/>
+      <Name nickname={nickname} profileImage={profileImage || defaultProfile} badge={badgeSrc} />
 
       <Information
         onOpenNicknameModal={() => setIsNicknameModalOpen(true)}
@@ -118,6 +120,7 @@ const Profile = () => {
           onClose={() => setIsBadgeModalOpen(false)}
           onSave={handleBadgeSave}
           initialBadgeId={activeBadgeId}
+          ownedBadgeIds={ownedBadgeIds}
         />
       )}
     </>

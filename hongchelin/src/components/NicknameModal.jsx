@@ -16,17 +16,6 @@ const NicknameModal = ({ onClose, onSave }) => {
       return alert("닉네임을 입력하세요 !");
     }
 
-    // try {
-    //   const me = await updateUserNickname(newNickname.trim());
-    //   onSave?.(me);
-    //   onClose();
-    // } catch (e) {
-    //   const msg =
-    //     e?.response?.data?.message ||
-    //     e?.message ||
-    //     "닉네임 변경에 실패했어요. 잠시 후 다시 시도해 주세요.";
-    //   alert(msg);
-    // }
     onSave?.(newNickname.trim());
     onClose();
   };
