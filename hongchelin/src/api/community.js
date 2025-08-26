@@ -30,6 +30,7 @@ const clampRating = (n) => {
 
 const toList = (data) => {
   if (Array.isArray(data)) return data;
+  if (data?.items && Array.isArray(data.items)) return data.items;
   if (data?.content && Array.isArray(data.content)) return data.content;
   return [];
 };
@@ -41,7 +42,7 @@ const sanitizePostPayload = (postData) => pickDefined({
   recommendedMenu: postData.recommendedMenu?.trim(),
   imageUrl: postData.imageUrl?.trim(),
   rating: clampRating(postData.rating),
-  createdDate: postData.createdDate,
+  createdDate: postData.createdAtKst,
 });
 
 export const getCommunityPosts = async ({ query = "", page = 0, size = 10 } = {}) => {

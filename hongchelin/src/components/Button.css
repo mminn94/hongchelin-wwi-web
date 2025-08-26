@@ -112,3 +112,11 @@
     background-color: #BD2333;
     color: #ffffff;
 }
+
+.Button_detail{
+    background-color: #BD2333;
+    color: #fff;
+    height: 35px;
+    width: 70px;
+    justify-content: center;
+}

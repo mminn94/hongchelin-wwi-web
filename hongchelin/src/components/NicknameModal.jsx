@@ -1,7 +1,6 @@
 import "./NicknameModal.css";
 import Button from "./Button";
 import { useState, useEffect } from "react";
-// import { updateUserNickname } from "../api/post";
 
 const NicknameModal = ({ onClose, onSave }) => {
   const [newNickname, setNewNickname] = useState("");

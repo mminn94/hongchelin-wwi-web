@@ -98,7 +98,7 @@ const PostDetail = () => {
   return (
     <div className="PostDetail">
       <div>
-        <Button type="back" onClick={() => nav(-1)} style={{ marginTop: "10px" }}>
+        <Button type="back" onClick={() => nav(`/community`)} style={{ marginTop: "10px" }}>
           뒤로가기
         </Button>
       </div>
@@ -127,15 +127,15 @@ const PostDetail = () => {
       </div>
 
       <div className="detail">
-        <p>📍 위치: {post.restaurantName}</p>
+        <p>🚩 위치: {post.restaurantName}</p>
         <p>🍽️ 추천메뉴: {post.recommendedMenu}</p>
         <p>⭐️ 별점: {post.rating} / 5</p>
         {post.imageUrl && <img src={post.imageUrl} alt="첨부 이미지" width="300" />}
       </div>
 
       <div className="postDetail">
-        <Button type="edit" onClick={handleEdit}>수정</Button>
-        <Button type="delete" onClick={handleDelete}>삭제</Button>
+        <Button type="detail" onClick={handleEdit}>수정</Button>
+        <Button type="detail" onClick={handleDelete}>삭제</Button>
       </div>
 
       <section style={{ marginTop: "40px" }}>
@@ -160,15 +160,35 @@ const PostDetail = () => {
         <section style={{ marginTop: "20px" }}>
           <h3>📝 댓글 목록</h3>
           {comments.map((c) => (
-            <div key={c.id} className="comment-item">
-              <p>
-                <b>{c.nickname}</b>: {c.content}
-              </p>
+            <div key={c.id} className="comment-item" style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
+              {c.authorProfileImageUrl && (
+                <img
+                  src={c.authorProfileImageUrl}
+                  alt={`${c.authorNickname} 프로필`}
+                  className="comment-profile"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    marginRight: "10px"
+                  }}
+                />
+              )}
+              <div style={{ flex: 1 }}>
+                <p style={{ margin: 0, fontWeight: "bold" }}>{c.authorNickname}</p>
+                <p style={{ margin: "2px 0", fontSize: "12px", color: "#666" }}>
+                  {new Date(c.createdAt).toLocaleDateString("ko-KR")}{" "}
+                  {new Date(c.createdAt).toLocaleTimeString("ko-KR", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+                <p style={{ margin: "4px 0" }}>{c.content}</p>
+              </div>
               <Button
                 type="delete"
                 onClick={() => handleCommentDelete(c.id)}
-                style={{ marginLeft: "10px" }}
-              >
+                style={{ marginLeft: "10px" }}>
                 삭제
               </Button>
             </div>

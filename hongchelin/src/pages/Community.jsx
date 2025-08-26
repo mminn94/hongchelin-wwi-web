@@ -20,11 +20,10 @@ const Community = () => {
     try {
       setLoading(true);
       const data = await getCommunityPosts({ query, page: 0, size: 20 });
-      setPosts(Array.isArray(data) ? data : (data?.content || []));
-
+      setPosts(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("게시글 불러오기 실패:", err);
-      setPosts([]); // 에러 났을 때도 안전하게 초기화
+      setPosts([]);
     } finally {
       setLoading(false);
     }
@@ -72,14 +71,13 @@ const Community = () => {
               key={post.id}
               id={post.id}
               title={post.title}
-              createdDate={post.createdDate}
-              content={post.content}
+              createdDate={post.createdAtKst}
+              content={post.preview}
               restaurantName={post.restaurantName}
             />
           ))
         )}
       </div>
-      <Footer />
     </div>
   );
 };

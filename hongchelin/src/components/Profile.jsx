@@ -79,8 +79,8 @@ const Profile = () => {
   }, []);
 
 
-  const handleBadgeSave = (pickedBadge) => {
-    setActiveBadgeId(pickedBadge.id);
+  const handleBadgeSave = (newBadgeId) => {
+    setActiveBadgeId(newBadgeId);
     setIsBadgeModalOpen(false);
   };
 

@@ -13,10 +13,10 @@ const Items = ({id, title, createdDate, content, restaurantName}) => {
             <div className="item-header">
                 <h3 className="item-title">{title}</h3>
                 <span className="item-date">
-                {new Date(createdDate).toLocaleDateString("ko-KR")}
+                    {createdDate}
                 </span>
             </div>
-            <h4 className="item-location">📍{restaurantName}</h4>
+            <h4 className="item-location">🚩 {restaurantName}</h4>
             <p className="item-content">{content}</p>
         </div>
     );

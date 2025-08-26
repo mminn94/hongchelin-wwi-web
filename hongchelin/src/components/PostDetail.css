@@ -6,8 +6,6 @@
 
 
 .PostDetail .title {
-  border-bottom: 2px solid #eee;
-  padding-bottom: 15px;
   margin-bottom: 20px;
 }
 
@@ -24,10 +22,9 @@
 
 
 .PostDetail .detail {
-  background-color: #fdf2f2;
-  border-radius: 10px;
-  padding: 15px;
+  padding: 2px;
   margin-bottom: 20px;
+  border-bottom: 2px solid #eee ;
 }
 
 .PostDetail .detail p {
@@ -91,7 +88,6 @@
   margin-top: 10px;
   transition: 0.2s ease;
 }
-
 
 .info {
   display: flex;

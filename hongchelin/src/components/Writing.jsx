@@ -113,7 +113,7 @@ const Writing = ({ initData, onSubmit, mode }) => {
       </section>
 
       <section className="date_section">
-        <h4>📍 위치</h4>
+        <h4>🚩 위치</h4>
         <input
           name="restaurantName"
           type="text"

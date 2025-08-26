@@ -1,4 +1,3 @@
-// src/components/BadgeModal.jsx
 import { useEffect, useState } from "react";
 import { BADGES } from "../constants/BadgeImage";
 import "./BadgeModal.css";
@@ -21,10 +20,8 @@ const BadgeModal = ({ onClose, onSave, initialBadgeId }) => {
     try {
       setSaving(true);
       setError("");
-      await setActiveBadge(badge.id);
-
-      onSave?.(badge);
-
+      const me = await setActiveBadge(badge.id);
+      onSave?.(me.activeBadgeId ?? badge.id);
       onClose();
     } catch (err) {
       console.error("대표 배지 설정 실패:", err);

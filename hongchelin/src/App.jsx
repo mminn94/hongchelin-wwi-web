@@ -1,13 +1,11 @@
-//import { useState } from 'react'
-//import { useNavigate } from 'react-router-dom'
 import Footer from "./components/Footer"
 import Mypage from "./pages/Mypage"
 import Community from "./pages/Community"
-// import Writing from "./components/Writing"
 import EditPage from "./components/EditPage"
 import KakaoMap from "./components/KakaoMap"
 import WritingPage from "./components/WritingPage"
 import PostDetail from "./components/PostDetail"
+import "./App.css"
 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import { createContext, useReducer } from "react";
@@ -25,7 +23,6 @@ const reducer = (state, action) => {
       return state;
   }
 };
-  
 
 function App() {
   const [posts, dispatch] = useReducer(reducer, []);
@@ -35,16 +32,18 @@ function App() {
       <PostsDispatchContext.Provider value={dispatch}>
         <Router>
           <div className="App">
-            <Routes>
-              <Route path="/" element={<KakaoMap />}/>
-              <Route path="/mypage" element={<Mypage/>}/>
-              <Route path="/community" element={<Community />}/>
-              {/* <Route path="/vote" element={<Vote/>}/> */}
-              <Route path="/writing" element={<WritingPage/>}/>
-              <Route path="/posts/:postId" element={<PostDetail/>}/>
-              <Route path="writing/edit/:postId" element={<EditPage />}/>
-              <Route path="*" element={<div>페이지를 찾을 수 없습니다.</div>}/>
-            </Routes>
+            <main>
+              <Routes>
+                <Route path="/" element={<KakaoMap />}/>
+                <Route path="/mypage" element={<Mypage/>}/>
+                <Route path="/community" element={<Community />}/>
+                <Route path="/writing" element={<WritingPage/>}/>
+                <Route path="/posts/:postId" element={<PostDetail/>}/>
+                <Route path="/writing/edit/:postId" element={<EditPage />}/>
+                <Route path="*" element={<div>페이지를 찾을 수 없습니다.</div>}/>
+              </Routes>
+            </main>
+            <Footer />   {/* ✅ 항상 하단 고정 */}
           </div>
         </Router>
       </PostsDispatchContext.Provider>
